@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Ticketeer.Application.Contracts.Infrastructure.Repositories;
 using Ticketeer.Application.Contracts.Infrastructure.Services;
-using Ticketeer.Application.Contracts.Services;
 using Ticketeer.Application.Settings;
 
 namespace Ticketeer.API.Middlewares

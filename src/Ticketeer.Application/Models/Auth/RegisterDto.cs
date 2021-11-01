@@ -11,6 +11,7 @@ namespace Ticketeer.Application.Models.Auth
         [Required]
         public string Password { get; set; }
         [Required]
-        public RoleType UserType { get; set; }
+        [EnumDataType(typeof(RoleType))]
+        public string UserType { get; set; }
     }
 }

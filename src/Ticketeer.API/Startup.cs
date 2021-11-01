@@ -8,9 +8,11 @@ using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
@@ -98,13 +100,17 @@ namespace Ticketeer.API
             // AWS SNS
             // services.Configure<AWSSNSSettings>(Configuration.GetSection("AWSSNSSettings"));
 
+            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
             services.AddScoped<IDataDbContext, DataDbContext>();
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ITicketService, TicketService>();
+            services.AddScoped<ITransactionService, TransactionService>();
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IPasswordService, PasswordService>();
             services.AddScoped<IJwtService, JwtService>();
+            services.AddScoped<IUserAccessor, UserAccessor>();
             services.AddScoped<ITicketRepository, TicketRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IOrderRepository, OrderRepository>();
@@ -226,19 +232,19 @@ namespace Ticketeer.API
 
             #region Configure Hangfire  
             //Basic Authentication added to access the Hangfire Dashboard  
-            app.UseHangfireDashboard("/hangfire", new DashboardOptions()
-            {
-                AppPath = null,
-                DashboardTitle = "Hangfire Dashboard",
-                /* Authorization = new[]{
-                     new HangfireCustomBasicAuthenticationFilter{
-                         User = configuration.GetSection("HangfireCredentials:UserName").Value,
-                         Pass = configuration.GetSection("HangfireCredentials:Password").Value
-                     }
-                 },*/
-                //Authorization = new[] { new DashboardNoAuthorizationFilter() },  
-                //IgnoreAntiforgeryToken = true  
-            });
+            // app.UseHangfireDashboard("/hangfire", new DashboardOptions()
+            // {
+            //     AppPath = null,
+            //     DashboardTitle = "Hangfire Dashboard",
+            //     /* Authorization = new[]{
+            //          new HangfireCustomBasicAuthenticationFilter{
+            //              User = configuration.GetSection("HangfireCredentials:UserName").Value,
+            //              Pass = configuration.GetSection("HangfireCredentials:Password").Value
+            //          }
+            //      },*/
+            //     //Authorization = new[] { new DashboardNoAuthorizationFilter() },  
+            //     //IgnoreAntiforgeryToken = true  
+            // });
             #endregion
         }
     }

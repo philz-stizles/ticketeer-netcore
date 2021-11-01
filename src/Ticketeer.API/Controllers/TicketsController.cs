@@ -10,10 +10,10 @@ using Ticketeer.Domain.Enums;
 namespace Ticketeer.API.Controllers
 {
     [Authorize(RoleType.Vendor)]
-    public class TicketController : BaseController
+    public class TicketsController : BaseController
     {
         private readonly ITicketService _ticketService;
-        public TicketController(ITicketService ticketService)
+        public TicketsController(ITicketService ticketService)
         {
             _ticketService = ticketService;
         }

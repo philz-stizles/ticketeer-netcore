@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Ticketeer.Application.Contracts.Infrastructure.Repositories;
@@ -13,11 +14,16 @@ namespace Ticketeer.Application.Services
     public class OrderService : IOrderService
     {
         private readonly IOrderRepository _orderRepository;
+        private readonly ITicketRepository _ticketRepository;
+        private readonly IUserAccessor _userAccessor;
         private readonly IMapper _mapper;
 
-        public OrderService(IOrderRepository orderRepository, IMapper mapper)
+        public OrderService(IOrderRepository orderRepository, IUserAccessor userAccessor,
+            ITicketRepository ticketRepository, IMapper mapper)
         {
             _mapper = mapper;
+            _userAccessor = userAccessor;
+            _ticketRepository = ticketRepository;
             _orderRepository = orderRepository;
         }
 
@@ -33,6 +39,8 @@ namespace Ticketeer.Application.Services
         public async Task<OrderDto> CreateAsync(OrderCreateDto orderCreateDto)
         {
             var newOrder = _mapper.Map<Order>(orderCreateDto);
+            newOrder.CreatedDate = DateTime.Now;
+            newOrder.CreatedBy = _userAccessor.GetCurrentUserId();
             var createdOrder = await _orderRepository.CreateOrder(newOrder);
             return _mapper.Map<OrderDto>(createdOrder);
         }

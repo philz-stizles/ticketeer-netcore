@@ -30,9 +30,9 @@ namespace Ticketeer.Infrastructure.Persistence.Repositories
             return result.DeletedCount > 0;
         }
 
-        public Task<Ticket> GetTicket(string id)
+        public async Task<Ticket> GetTicket(string id)
         {
-            throw new System.NotImplementedException();
+            return await _context.Tickets.Find(t => t.Id == id).FirstOrDefaultAsync();
         }
 
         public Task<IEnumerable<Ticket>> GetTicketByName(string name)

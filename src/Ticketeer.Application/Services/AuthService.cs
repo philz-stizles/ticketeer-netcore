@@ -52,12 +52,12 @@ namespace Ticketeer.Application.Services
 
             // Assign user roles.
             newUser.Roles = new List<RoleType>();
-            if(registerDto.UserType == RoleType.Vendor)
+            if(registerDto.UserType == RoleType.Vendor.ToString())
             {
                 newUser.Roles.Add(RoleType.Vendor);
             }
 
-            if (registerDto.UserType == RoleType.User)
+            if (registerDto.UserType == RoleType.User.ToString())
             {
                 newUser.Roles.Add(RoleType.User);
             }

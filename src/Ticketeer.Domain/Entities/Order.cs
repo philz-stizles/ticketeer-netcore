@@ -10,16 +10,13 @@ namespace Ticketeer.Domain.Entities
     {
         [BsonRepresentation(BsonType.ObjectId)]
         public List<string> Tickets { get; set; }
-        [BsonIgnore]
-        public List<Ticket> TicketList { get; set; }
         public TimeSpan ExpiresAt { get; set; }
         public OrderStatus Status { get; set; }
-        public User User { get; set; }
         public decimal TotalAmount { get; set; }
 
         public int TotalItems
         {
-            get { return TicketList.Count; }
+            get { return Tickets.Count; }
         }
     }
 }

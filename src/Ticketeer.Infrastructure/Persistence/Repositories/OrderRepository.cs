@@ -44,7 +44,7 @@ namespace Ticketeer.Infrastructure.Persistence.Repositories
         {
             return await _context
                             .Orders
-                            .Find(p => true)
+                            .Find(p => true )
                             .ToListAsync();
         }
 

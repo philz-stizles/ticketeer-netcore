@@ -8,10 +8,10 @@ using Ticketeer.Application.Models.Orders;
 namespace Ticketeer.API.Controllers
 {
     // [Authorize(RoleType.Vendor, RoleType.User)]
-    public class OrderController : BaseController
+    public class OrdersController : BaseController
     {
         private readonly IOrderService _orderService;
-        public OrderController(IOrderService orderService)
+        public OrdersController(IOrderService orderService)
         {
             _orderService = orderService;
         }
