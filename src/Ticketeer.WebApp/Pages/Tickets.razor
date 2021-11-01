@@ -1,0 +1,80 @@
+﻿@page "/tickets"
+
+@using Ticketeer.Application.Models
+@using Ticketeer.Application.Contracts.Services
+@inject ITicketService TicketService
+
+<div class="d-flex justify-content-between">
+    <div>
+        <h1>Tickets</h1>
+
+        <p>Manage your tickets.</p>
+    </div>
+    <div>
+        <button class="btn btn-primary">Create Ticket</button>
+    </div>
+</div>
+
+@if (tickets == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var ticket in tickets)
+            {
+                <tr>
+                    <td>@ticket.Id</td>
+                    <td>@ticket.Name</td>
+                    <td>@ticket.Description</td>
+                    <td>@ticket.Price</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@if (Show)
+{
+    <div class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Modal body text goes here.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public bool Show { get; set; } = false;
+
+    private List<TicketDto> tickets;
+
+    protected override async Task OnInitializedAsync()
+    {
+        tickets = await TicketService.GetAsync();
+    }
+}

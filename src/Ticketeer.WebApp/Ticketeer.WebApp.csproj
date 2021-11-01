@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <UserSecretsId>cb9bc4a9-9d86-4db9-b6f4-f6df7bf9caf9</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Ticketeer.Application\Ticketeer.Application.csproj" />
+    <ProjectReference Include="..\Ticketeer.Infrastructure\Ticketeer.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
